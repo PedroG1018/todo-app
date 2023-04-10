@@ -8,11 +8,7 @@ const AppHeader = () => {
 
   return (
     <div className={styles.appHeader}>
-      <Button
-        type="button"
-        variant="primary"
-        onClick={() => setModalOpen(true)}
-      >
+      <Button variant="primary" onClick={() => setModalOpen(true)}>
         Add Task
       </Button>
       <SelectButton id="status">
