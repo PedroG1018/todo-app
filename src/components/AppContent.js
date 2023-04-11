@@ -5,15 +5,24 @@ import styles from '../styles/modules/app.module.scss';
 
 const AppContent = () => {
   const todoList = useSelector((state) => state.todo.todoList);
+  const filterStatus = useSelector((state) => state.todo.filterStatus);
 
   // sort tasks based on time created
   const sortedTodoList = [...todoList];
   sortedTodoList.sort((a, b) => new Date(b.time) - new Date(a.time));
 
+  // filter tasks based on status
+  const filteredTodoList = sortedTodoList.filter((item) => {
+    if (filterStatus === 'all') {
+      return true;
+    }
+    return item.status === filterStatus;
+  });
+
   return (
     <div className={styles.content__wrapper}>
-      {sortedTodoList && sortedTodoList.length > 0
-        ? sortedTodoList.map((todo) => <TodoItem key={todo.id} todo={todo} />)
+      {filteredTodoList && filteredTodoList.length > 0
+        ? filteredTodoList.map((todo) => <TodoItem key={todo.id} todo={todo} />)
         : 'no todo found'}
     </div>
   );
